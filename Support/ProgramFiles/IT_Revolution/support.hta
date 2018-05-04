@@ -1,0 +1,143 @@
+<html>
+
+<head>
+	<title>IT Revolution Support</title>
+
+	<meta name="description" content="IT Revolution Számítástechnikai és kommunikációs támogatás, karbantartás és tanácsadás kis- és középvállalkozások számára" />
+	<link href="styles/main.css" rel="stylesheet" type="text/css" />
+
+	<hta:application id="MyApp"
+		applicationname=" IT Revolution Support"
+		border="thin"
+		borderstyle="normal"
+		caption="yes"
+		contextmenu="no"
+		icon="images\IT_Revolution.ico"
+		innerborder="yes"
+		maximizebutton="no"
+		minimizebutton="no"
+		navigable="no"
+		scroll="no"
+		scrollflat="no"
+		selection="yes"
+		showintaskbar="yes"
+		singleinstance="no"
+		sysmenu="yes"
+		version="1.0 Beta"
+		windowstate="normal"
+	>
+</head>
+
+<script language="VBScript">
+	
+	Sub Window_Onload
+		window.document.title = MyApp.applicationname & " " & MyApp.version
+
+		window.resizeTo 800,600	  
+		strComputer = "."
+		Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+		Set colItems = objWMIService.ExecQuery("Select * From Win32_DesktopMonitor")
+		For Each objItem in colItems
+			intHorizontal = objItem.ScreenWidth
+			intVertical = objItem.ScreenHeight
+		Next
+		intLeft = (intHorizontal - 800) / 2
+		intTop = (intVertical - 600) / 2
+
+		If IsNull(intHorizontal) Then
+			intLeft = 0
+			intTop = 0
+		End If
+
+		window.moveTo intLeft, intTop
+	  
+	End Sub
+	
+	Sub runapp(app)
+		Dim WshShell
+		Set WshShell = CreateObject("WScript.Shell")
+		WSHShell.Run app
+	End Sub
+	
+	Sub information()
+		runapp(".\pcinfo.hta")
+	End Sub
+	
+	Sub Quit()
+		window.close
+	End Sub
+</script>
+
+<body>
+	<div id="container">
+		
+		<div id="header">
+			<div id="nav-strip">
+				<ul>
+					<li><a href="http://www.itrevolution.hu/">Nézd meg a weboldalunkat !</a></li>
+					<li><a href="#" onclick="VBScript:Quit()">Bezárás</a></li>
+				</ul>
+			</div>
+			
+			<div id="banner-right-image"><img src="images/banner-right.png" alt="IT Revolution" border="0" height="115px" /></div>
+			<div id="banner-left-image"><img src="images/banner-left.gif" alt="IT Revolution Support " border="0" height="115px" /></div>
+		</div>
+		
+		<div id="content">
+		
+			<p>&nbsp;</p>
+		
+			<table width="780px">
+				<tr>
+				
+				<td width="195px">
+					<p>
+						<a href="http://faq.support.itrevolution.hu" style="text-decoration : none;"><img src="images/knowledge.png" alt="Gyakori kérdések" border="0" /></a>
+					</p>
+				</td>
+				
+				<td width="195px">
+					<p>
+						<a href="http://support.itrevolution.hu" style="text-decoration : none;"><img src="images/ticket.png" alt="Jelentsd be a hibát" border="0" /></a>
+					</p>
+				</td>
+				
+				<td width="195px">
+					<p>
+						<a href="mailto:support@itrevolution.hu?subject=Kerem%20Irja ide%20a hibat%20Title%20in%20Subject&body=Kerlek%20describe%20your%20issue" style="text-decoration : none;"><img src="images/email.png" alt="Email küldése az ügyfélszolgálatnak" border="0" /></a>
+					</p>
+				</td>
+				
+				<td width="195px">
+					<p>
+						<img src="images/call.png" alt="Hívd ügyfélszolgálatunk" />
+					</p>
+				</td>
+				
+				</tr>
+			</table>
+			
+			<p>&nbsp;</p>
+			
+			<p>
+				<a href="#" onClick="VBScript:information()" style="text-decoration : none;"><img src="images/information.png" alt="Hasznos információk a support számára" border="0" /></a>
+				&nbsp;&nbsp;
+				<a href="http://www.itrevolution.hu/letoltesek/" style="text-decoration : none;"><img src="images/remoteaccess.png" alt="Távsegítség telepítése" border="0" /></a>
+			</p>
+			
+		</div>
+		
+		<div id="footer">
+			<div class="float-right">
+				<img src="images/IT_RevolutionLogo_white.png" alt=" IT Revolution Logo" width="150px" />
+			</div>
+			<div>
+				<p>IT Revolution Hungary Kft.<br />
+				9700 Szombathely
+Szent István király utca 83. E. ép. fszt. 2. <p>Adószám:26298151-2-18.<br</p> <div Bankszámlaszám:10300002-10707763-49020013 </div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
